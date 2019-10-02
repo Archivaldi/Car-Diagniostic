@@ -2,6 +2,12 @@ CREATE DATABASE bike_trip;
 
 USE bike_trip;
 
+CREATE TABLE role_types(
+    role_id INT NOT NULL,
+    role_name VARCHAR(50),
+    PRIMARY KEY (role_id)
+);
+
 CREATE TABLE users(
     user_id INT NOT NULL AUTO_INCREMENT,
     user_name VARCHAR(55),
@@ -10,10 +16,4 @@ CREATE TABLE users(
     role_id INT NOT NULL,
     FOREIGN KEY (role_id) REFERENCES role_types(role_id),
     PRIMARY KEY (user_id)
-);
-
-CREATE TABLE role_types(
-    role_id INT NOT NULL,
-    role_name VARCHAR(50),
-    PRIMARY KEY (role_id)
 );
