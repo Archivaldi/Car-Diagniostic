@@ -30,12 +30,15 @@ app.get("/OBD_LookUp", function(req,res){
 });
 
 
-app.get("/", function (req,res){
-    connection.query("SELECT * FROM role_types", function(err, result){
-        res.render("index", {res:result});
+app.get("/", function (req, res) {
+    connection.query("SELECT * FROM role_types", function (err, result) {
+        res.render("index", { res: result });
     })
 })
+app.get("/signup", function (req, res) {
+    connecttion.query
+})
 
-app.listen(3000, function(){
+app.listen(3000, function () {
     console.log("Listening on 3000");
 });
