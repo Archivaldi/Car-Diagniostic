@@ -9,7 +9,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Notable&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
-    <title>VinVin</title>
+    <title>Car Diagnostic</title>
 
 </head>
 
@@ -21,12 +21,12 @@
                 <h2>OBD LookUp</h2>
                 <form id="obd" action="/obdlookup" method="POST">
 
-                    VIN:<br>
-                    <input type="text" name="vinNum" required>
-                    Mileage:<br>
-                    <input type="text" name="carMileage" required>
-                    Error Code: <br>
-                    <input type="text" name="errorCode" required>
+                    <label for="vinNum">Vin:</label>
+                    <input id="vinNum" type="text" name="vinNum" required>
+                    <label for="carMileage">Mileage:</label>
+                    <input id="carMileage" type="text" name="carMileage" required>
+                    <label for="errorCode">Error Code:</label>
+                    <input id="errorCode" type="text" name="errorCode" required>
                     <button class="btn btn-primary" type="submit">Submit</button>
 
                 </form>
