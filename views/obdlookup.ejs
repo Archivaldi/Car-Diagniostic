@@ -18,9 +18,21 @@
         <% include .views/partials/header %>
         <div class="jumbotron">
             <div>
-                //should redirect to sign up page
-                <button class="btn btn-primary" type="submit">JOIN VinVin</button>
+                <h2>OBD LookUp</h2>
+                <form id="obd" action="/obdlookup" method="POST">
 
+                    VIN:<br>
+                    <input type="text" name="vinNum" required>
+                    Mileage:<br>
+                    <input type="text" name="carMileage" required>
+                    Error Code: <br>
+                    <input type="text" name="errorCode" required>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+
+                </form>
+                <div class="fullInfo">
+                    /*here goes response from api*/
+                </div>
             </div>
         </div>
     </div>
