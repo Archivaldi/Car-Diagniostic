@@ -18,9 +18,17 @@
         <% include .views/partials/header %>
         <div class="jumbotron">
             <div>
-                //should redirect to sign up page
-                <button class="btn btn-primary" type="submit">JOIN VinVin</button>
+                <h2>Sign up</h2>
+                <form id="main" action="/signup" method="POST">
+                    Name:<br>
+                    <input type="text" name="name" required>
+                    <br>
+                    Password: <br>
+                    <input type="text" name="password" required>
 
+                    <button class="btn btn-primary" type="submit">Login</button>
+
+                </form>
             </div>
         </div>
     </div>
