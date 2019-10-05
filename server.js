@@ -6,6 +6,8 @@ app.set("view engine", "ejs");
 //mysql package
 const mysql = require("mysql");
 
+const path = require("path");
+
 //add dotenv package for hiding private data
 require("dotenv").config();
 const keys = require("./keys.js");
@@ -21,6 +23,10 @@ connection.connect(function (err) {
         console.log(err);
     }
     console.log("Database connected");
+});
+
+app.get("/OBD_LookUp", function(req,res){
+    res.render("obdlookup");
 });
 
 
