@@ -20,19 +20,19 @@
             <div>
                 <h2>Sign up</h2>
                 <form id="main" action="/signup" method="POST">
-                    Name:<br>
-                    <input type="text" name="name" required>
-                    <br>
-                    Password: <br>
-                    <input type="text" name="password" required>
-                    Car make:<br>
-                    <input type="text" name="carmake" placeholder="eg.Ford" required>
-                    Car model:<br>
-                    <input type="text" name="carModel" placeholder="eg.Focus" required>
-                    Car year: <br>
-                    <input type="number" name="year" min="4" placeholder="eg.2008" required>
+                    <label for="email">Email: </label>
+                    <input id="email" type="email" name="email" required>
+                    <label for="fullname">Full name: </label>
+                    <input id="fullname" type="text" name="name" required>
+                    <label for="pass">Password: </label>
+                    <input id="pass" type="text" name="password" required>
+                    <label for="carMake">Car make: </label>
+                    <input id="carMake" type="text" name="carmake" placeholder="eg.Ford" required>
+                    <label for="carModel">Car model: </label>
+                    <input id="carModel" type="text" name="carModel" placeholder="eg.Focus" required>
+                    <label for="carYear">Car year: </label>
+                    <input id="carYear" type="number" name="year" min="4" placeholder="eg.2008" required>
                     <button class="btn btn-primary" type="submit">Submit</button>
-
                 </form>
             </div>
         </div>
