@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="obd">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Notable&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
+
     <title>Car Diagnostic</title>
 
 </head>
@@ -31,45 +32,47 @@
 
                 </form>
             </div>
+
+        </div>
+        <div class="imgobd">
+            <img id="obdimg" src="assets/images/car1.jpg" alt="OBD">
         </div>
     </div>
-    <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
 
-$("button").on("click", function(){
-    event.preventDefault();
-        var vin = $("#vinNum").val();
-        var mileage = $("#carMileage").val();
-        var errorCode = $("#errorCode").val();
+        $("button").on("click", function () {
+            event.preventDefault();
+            var vin = $("#vinNum").val();
+            var mileage = $("#carMileage").val();
+            var errorCode = $("#errorCode").val();
 
-    $.ajax({
-        url: "http://api.carmd.com/v3.0/diag?vin=" + vin + "&mileage=" + mileage + "&dtc="+ errorCode,
-        headers: {
-                'authorization': 'Basic NjEwMDFlOWQtYTAzYS00MDMxLWFmZTItMjJmMTA5NjFjNmQ5',
-                'partner-token': 'a03d6db1fe2a45f1b0ffd3f0754925e6'
-            },
-        vin:vin,
-        mileage: parseInt(mileage),
-        dtc:errorCode,
-        method: "GET"
-    }).then(function(results){
-        $("#formAndResults").empty();
-        $("#formAndResults").append("<ul>");
-        $("ul").append("<li>");
-        $("li:last-child").text("Error code: " + results.data.code);
-        $("ul").append("<li>");
-        $("li:last-child").text("Definition: " + results.data.tech_definition);
-        $("ul").append("<li>");
-        $("li:last-child").text("Effect on vihicle: " + results.data.effect_on_vehicle);
-        $("ul").append("<li>");
-        $("li:last-child").text("Responsible System: " + results.data.responsible_system);
-        $("ul").append("<li>");
-        $("li:last-child").text("Urgency: " + results.data.urgency_desc);
-    });
-})
+            $.ajax({
+                url: "http://api.carmd.com/v3.0/diag?vin=" + vin + "&mileage=" + mileage + "&dtc=" + errorCode,
+                headers: {
+                    'authorization': 'Basic NjEwMDFlOWQtYTAzYS00MDMxLWFmZTItMjJmMTA5NjFjNmQ5',
+                    'partner-token': 'a03d6db1fe2a45f1b0ffd3f0754925e6'
+                },
+                vin: vin,
+                mileage: parseInt(mileage),
+                dtc: errorCode,
+                method: "GET"
+            }).then(function (results) {
+                $("#formAndResults").empty();
+                $("#formAndResults").append("<ul>");
+                $("ul").append("<li>");
+                $("li:last-child").text("Error code: " + results.data.code);
+                $("ul").append("<li>");
+                $("li:last-child").text("Definition: " + results.data.tech_definition);
+                $("ul").append("<li>");
+                $("li:last-child").text("Effect on vihicle: " + results.data.effect_on_vehicle);
+                $("ul").append("<li>");
+                $("li:last-child").text("Responsible System: " + results.data.responsible_system);
+                $("ul").append("<li>");
+                $("li:last-child").text("Urgency: " + results.data.urgency_desc);
+            });
+        })
     </script>
 </body>
 
