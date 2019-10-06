@@ -35,6 +35,9 @@ connection.connect(function (err) {
     }
     console.log("Database connected");
 });
+app.get("/index", function (req, res) {
+    res.render("index");
+});
 
 app.get("/OBD_LookUp", function (req, res) {
     res.render("obdlookup");
@@ -96,7 +99,6 @@ app.get('/logout', function(req, res){
 	})
 });
 
-
 app.get("/", function (req, res) {
     connection.query("SELECT * FROM role_types", function (err, result) {
         res.render("index", { res: result });
@@ -146,47 +148,3 @@ app.post("/signup", function (req, res) {
 app.listen(3000, function () {
     console.log("Listening on 3000");
 });
-
-
-
-// // localhost:3000/login/haven@yahoo.com/goldenwarriors24
-// app.get('/login/:email/:password', function(req, res){
-
-// 	connection.query('SELECT * FROM users WHERE email = ?', [req.params.email],function (error, results, fields) {
-
-// 	  if (error) throw error;
-
-// 	  // res.json(results);
-
-// 	  if (results.length == 0){
-// 	  	res.send('try again');
-// 	  }else {
-// 	  	bcrypt.compare(req.params.password, results[0].password_hash, function(err, result) {
-
-// 	  	    if (result == true){
-
-// 	  	      req.session.user_id = results[0].id;
-// 	  	      req.session.email = results[0].email;
-
-// 	  	      res.send('you are logged in');
-
-// 	  	    }else{
-// 	  	      res.redirect('/');
-// 	  	    }
-// 	  	});
-// 	  }
-// 	});
-// });
-
-// app.get('/another-page', function(req, res){
-// 	var user_info = {
-// 		user_id : req.session.user_id,
-// 		email: req.session.email
-// 	}
-
-// 	res.json(user_info);
-// });
-
-// app.listen(3000, function(){
-// 	console.log('listening on 3000');
-// });
