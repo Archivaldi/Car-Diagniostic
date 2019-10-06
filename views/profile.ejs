@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="home">
 
 <head>
     <meta charset="UTF-8">
@@ -9,25 +9,31 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Notable&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
-    <title>Car Diagnostic</title>
+    <title>VinVin</title>
 
 </head>
 
 <body>
     <div class="container">
         <% include ./partials/header %>
-        <div class="jumbotron">
+        <div class="container">
             <div>
-                <h2>Sign up</h2>
-                <form id="main" action="/login" method="POST">
-                    <label for="email">Email: </label>
-                    <input id="email" type="text" name="email" required>
-                    <label for="password"></label>
-                    <input id="password" type="text" name="password" required>
+                <button class="btn btn-primary" type="submit">Add new car</button>
 
-                    <button class="btn btn-primary" type="submit">Login</button>
+
+                <form id="profile">
+
+                    <label for="vinNum">Vin:</label>
+                    <input id="vinNum" type="text" required>
+                    <label for="carMileage">Mileage:</label>
+                    <input id="carMileage" type="text" required>
+                    <label for="errorCode">Error Code:</label>
+                    <input id="errorCode" type="text" required>
+                    <button class="btn btn-primary" type="submit">Submit</button>
 
                 </form>
+                <button class="btn btn-primary" type="submit">Add new car</button>
+
             </div>
         </div>
     </div>
