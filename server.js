@@ -24,20 +24,22 @@ connection.connect(function (err) {
     }
     console.log("Database connected");
 });
+app.get("/index", function (req, res) {
+    res.render("index");
+});
 
-app.get("/OBD_LookUp", function(req,res){
+app.get("/OBD_LookUp", function (req, res) {
     res.render("obdlookup");
 });
 
 
-app.get("/", function (req, res) {
-    connection.query("SELECT * FROM role_types", function (err, result) {
-        res.render("index", { res: result });
-    })
-})
 app.get("/signup", function (req, res) {
-    connecttion.query
-})
+
+});
+app.get("/login", function (req, res) {
+
+});
+
 
 app.listen(3000, function () {
     console.log("Listening on 3000");
