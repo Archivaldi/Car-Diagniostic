@@ -25,19 +25,45 @@
                 <h1>Logged in as <%= car_make%></h1>
                 <h1>Logged in as <%= car_year%></h1>
                 <!-- <button class="btn btn-primary" type="submit">Add new car</button> -->
+                <div class="container">
+                    <h2>Add new car</h2>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        Add new car
+                    </button>
+                    <div class="modal" id="newCar">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Car details: </h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="profile">
+
+                                        <label for="vinNum">Vin:</label>
+                                        <input id="vinNum" type="text" required>
+                                        <label for="carMileage">Mileage:</label>
+                                        <input id="carMileage" type="text" required>
+                                        <label for="errorCode">Error Code:</label>
+                                        <input id="errorCode" type="text" required>
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+
+                                    </form>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
 
-                <!-- <form id="profile">
-
-                    <label for="vinNum">Vin:</label>
-                    <input id="vinNum" type="text" required>
-                    <label for="carMileage">Mileage:</label>
-                    <input id="carMileage" type="text" required>
-                    <label for="errorCode">Error Code:</label>
-                    <input id="errorCode" type="text" required>
-                    <button class="btn btn-primary" type="submit">Submit</button>
-
-                </form>
                 <button class="btn btn-primary" type="submit">Add new car</button> -->
 
             </div>
