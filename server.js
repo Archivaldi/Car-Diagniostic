@@ -23,7 +23,6 @@ app.use(session({ secret: 'app', cookie: { maxAge: 1 * 1000 * 60 * 60 * 24 * 365
 require("dotenv").config();
 const keys = require("./keys.js");
 var connection = mysql.createConnection(keys.data);
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public'));
