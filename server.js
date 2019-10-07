@@ -43,15 +43,15 @@ app.get("/OBD_LookUp", function (req, res) {
     res.render("obdlookup");
 });
 
-app.get("/sign-up", function (req,res){
+app.get("/sign-up", function (req, res) {
     res.render("signup");
 })
 
-app.get("/log-in", function (req,res){
+app.get("/log-in", function (req, res) {
     res.render("login");
 });
 
-app.get("/vindecoder", function (req,res){
+app.get("/vindecoder", function (req, res) {
     res.render("vindecoder");
 })
 app.post("/login", function (req, res) {
@@ -69,12 +69,17 @@ app.post("/login", function (req, res) {
 
                     req.session.user_id = results[0].user_id;
                     req.session.email = results[0].user_email;
-                    req.session.name = results[0].user_name;                    
-                    req.session.car_model = results[0].car_model;                    
-                    req.session.car_make = results[0].car_make;                    
-                    req.session.car_year = results[0].car_year;                                      
-                    res.send('you are logged in');
-                    //res.redirect(profile page will go here);  
+                    req.session.name = results[0].user_name;
+                    req.session.car_model = results[0].car_model;
+                    req.session.car_make = results[0].car_make;
+                    req.session.car_year = results[0].car_year;
+                    res.redirect("profile", {
+                        email: req.session.email,
+                        name: req.session.name,
+                        car_model: req.session.car_model,
+                        car_make: req.session.car_make,
+                        car_year: req.session.car_year
+                    });
 
 
                 } else {
@@ -85,22 +90,22 @@ app.post("/login", function (req, res) {
     });
 });
 
-app.get('/another-page', function(req, res){
-	var user_info = {
-		user_id : req.session.user_id,
-        email: req.session.email,  
-        name: req.session.name,                   
-        car_model: req.session.car_model,                  
-        car_make: req.session.car_make,                   
-        car_year: req.session.car_year   
+app.get('/another-page', function (req, res) {
+    var user_info = {
+        user_id: req.session.user_id,
+        email: req.session.email,
+        name: req.session.name,
+        car_model: req.session.car_model,
+        car_make: req.session.car_make,
+        car_year: req.session.car_year
     }
     res.json(user_info);
 });
 
-app.get('/logout', function(req, res){
-	req.session.destroy(function(err){
-		res.send('you are logged out');
-	})
+app.get('/logout', function (req, res) {
+    req.session.destroy(function (err) {
+        res.send('you are logged out');
+    })
 });
 
 app.get("/", function (req, res) {
@@ -128,8 +133,13 @@ app.post("/signup", function (req, res) {
 
     function insertCar(userId, make, model, year) {
         connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year) VALUES (?, ?, ?, ?)", [userId, make, model, year], function (err, result) {
-            res.send("You signed up!")
-            //res.redirect(profile page will go here);  
+            res.redirect("profile", {
+                email: req.session.email,
+                name: req.session.name,
+                car_model: req.session.car_model,
+                car_make: req.session.car_make,
+                car_year: req.session.car_year
+            });
         })
     }
 
