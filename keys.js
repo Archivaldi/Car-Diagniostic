@@ -4,3 +4,4 @@ exports.data = {
     password: process.env.PASSWORD,
     database: process.env.DATABASE
   };
+  

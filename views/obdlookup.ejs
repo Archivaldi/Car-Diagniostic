@@ -61,12 +61,12 @@
             }).then(function (results) {
                 $("#formAndResults").empty();
                 $("#formAndResults").append("<ul>");
-                $("ul").append("<li>");
+                $("#formAndResults ul").append("<li>");
                 $("li:last-child").text("Error code: " + results.data.code);
                 $("ul").append("<li>");
                 $("li:last-child").text("Definition: " + results.data.tech_definition);
                 $("ul").append("<li>");
-                $("li:last-child").text("Effect on vihicle: " + results.data.effect_on_vehicle);
+                $("li:last-child").text("Effect on vehicle: " + results.data.effect_on_vehicle);
                 $("ul").append("<li>");
                 $("li:last-child").text("Responsible System: " + results.data.responsible_system);
                 $("ul").append("<li>");

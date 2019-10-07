@@ -49,6 +49,10 @@ app.get("/sign-up", function (req,res){
 
 app.get("/log-in", function (req,res){
     res.render("login");
+});
+
+app.get("/vindecoder", function (req,res){
+    res.render("vindecoder");
 })
 app.post("/login", function (req, res) {
     var userEmail = req.body.email;
@@ -130,20 +134,17 @@ app.post("/signup", function (req, res) {
     }
 
     bcrypt.genSalt(10, function (err, salt) {
-        console.log(salt);
         bcrypt.hash(password, salt, function (err, p_hash) {
-            console.log(p_hash);
             connection.query("INSERT INTO users(user_email, user_name, user_p_hash) VALUES (?, ?, ?)", [userEmail, userName, p_hash], function (err, result) {
                 if (err) {
-                    console.log(err);
                     res.send("You need to use a unique email")
                 } else {
                     selectNewUserId(userEmail);
-                }
-            })
-        })
-    })
-})
+                };
+            });
+        });
+    });
+});
 
 app.listen(3000, function () {
     console.log("Listening on 3000");
