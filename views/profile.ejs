@@ -21,9 +21,13 @@
 
                 <h1>Logged in as <%= name%></h1>
                 <h1>Logged in as <%= email%></h1>
-                <h1>Logged in as <%= car_model%></h1>
-                <h1>Logged in as <%= car_make%></h1>
-                <h1>Logged in as <%= car_year%></h1>
+                <h1>Cars: </h1>
+                <% for (var i = 0; i < cars.length; i++){%>
+                    <li><strong><%= cars[i].car_model %></strong></li>
+                    <li><%= cars[i].car_make %></li>
+                    <li><%= cars[i].car_year %></li>
+                    
+                <% } %>
                 <!-- <button class="btn btn-primary" type="submit">Add new car</button> -->
                 <div class="container">
                     <h2>Add new car</h2>

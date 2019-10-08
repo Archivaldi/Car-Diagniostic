@@ -69,16 +69,20 @@ app.post("/login", function (req, res) {
                     req.session.user_id = results[0].user_id;
                     req.session.email = results[0].user_email;
                     req.session.name = results[0].user_name;
-                    req.session.car_model = results[0].car_model;
-                    req.session.car_make = results[0].car_make;
-                    req.session.car_year = results[0].car_year;
+                    var usersCars = [];
+                    for (var i = 0; i < results.length; i++) {
+                        var car = {};
+                        car.car_model = results[i].car_model;
+                        car.car_make = results[i].car_make;
+                        car.car_year = results[i].car_year;
+                        usersCars.push(car);
+                    }
+                    req.session.user_cars = usersCars;
 
                     res.render("profile", {
                         email: req.session.email,
                         name: req.session.name,
-                        car_model: req.session.car_model,
-                        car_make: req.session.car_make,
-                        car_year: req.session.car_year
+                        cars: req.session.user_cars
                     });
 
 
@@ -133,6 +137,7 @@ app.post("/signup", function (req, res) {
 
     function insertCar(userId, make, model, year) {
         connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year) VALUES (?, ?, ?, ?)", [userId, make, model, year], function (err, result) {
+
             res.render("profile", {
                 email: req.session.email,
                 name: req.session.name,
