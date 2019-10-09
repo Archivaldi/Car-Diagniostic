@@ -28,41 +28,41 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 // Creates the connection with the server and loads the product data upon a successful connection
-connection.connect(function (err) {
+connection.connect(function(err) {
     if (err) {
         console.log(err);
     }
     console.log("Database connected");
 });
-app.get("/index", function (req, res) {
+app.get("/index", function(req, res) {
     res.render("index");
 });
 
-app.get("/OBD_LookUp", function (req, res) {
+app.get("/OBD_LookUp", function(req, res) {
     res.render("obdlookup");
 });
 
-app.get("/sign-up", function (req, res) {
+app.get("/sign-up", function(req, res) {
     res.render("signup");
 })
 
-app.get("/log-in", function (req, res) {
+app.get("/log-in", function(req, res) {
     res.render("login");
 });
 
-app.get("/vindecoder", function (req, res) {
+app.get("/vindecoder", function(req, res) {
     res.render("vindecoder");
 })
-app.post("/login", function (req, res) {
+app.post("/login", function(req, res) {
     var userEmail = req.body.email;
     var password = req.body.password;
 
-    connection.query('SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_email = ?', [userEmail], function (error, results, fields) {
+    connection.query('SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_email = ?', [userEmail], function(error, results, fields) {
         if (error) throw error;
         if (results == 0) {
             res.send("Invalid Email and/or password. Please try again");
         } else {
-            bcrypt.compare(password, results[0].user_p_hash, function (err, result) {
+            bcrypt.compare(password, results[0].user_p_hash, function(err, result) {
 
                 if (result == true) {
 
@@ -94,7 +94,7 @@ app.post("/login", function (req, res) {
     });
 });
 
-app.get('/another-page', function (req, res) {
+app.get('/another-page', function(req, res) {
     var user_info = {
         user_id: req.session.user_id,
         email: req.session.email,
@@ -106,21 +106,21 @@ app.get('/another-page', function (req, res) {
     res.json(user_info);
 });
 
-app.get('/logout', function (req, res) {
-    req.session.destroy(function (err) {
+app.get('/logout', function(req, res) {
+    req.session.destroy(function(err) {
         res.send('you are logged out');
     })
 });
 
-app.get("/", function (req, res) {
-    connection.query("SELECT * FROM role_types", function (err, result) {
+app.get("/", function(req, res) {
+    connection.query("SELECT * FROM role_types", function(err, result) {
         res.render("index", { res: result });
     })
 })
 
 
 
-app.post("/signup", function (req, res) {
+app.post("/signup", function(req, res) {
     var userEmail = req.body.email;
     var userName = req.body.name;
     var password = req.body.password;
@@ -129,7 +129,7 @@ app.post("/signup", function (req, res) {
     var carYear = req.body.year;
 
     function selectNewUserId(email) {
-        connection.query("SELECT * FROM users WHERE user_email=?", [email], function (err, result) {
+        connection.query("SELECT * FROM users WHERE user_email=?", [email], function(err, result) {
             insertCar(result[0].user_id, carMake, carModel, carYear);
         })
     }
@@ -139,7 +139,8 @@ app.post("/signup", function (req, res) {
         connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year) VALUES (?, ?, ?, ?)", [userId, make, model, year], function (err, result) {
             req.session.logged_in = true;
 
-            req.session.user_id = userId; //only way to get id of an insert for the mysql npm package
+
+            req.session.user_id = userId; 
 
             connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results) {
 
@@ -172,10 +173,11 @@ app.post("/signup", function (req, res) {
                         selectNewUserId(userEmail);
                     };
                 });
+
             });
         });
     });
 
-app.listen(3000, function () {
+app.listen(3000, function() {
     console.log("Listening on 3000");
 });
