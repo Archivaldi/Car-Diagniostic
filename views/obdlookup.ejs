@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Notable&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
 
@@ -15,38 +14,58 @@
 </head>
 
 <body>
-    <div class="container">
+    <header>
         <% include ./partials/header %>
-        <div class="jumbotron">
-            <div id="formAndResults">
-                <h2>OBD LookUp</h2>
-                <form id="obd">
+    </header>
+    <div class="jumbotron">
+        <div id="formAndResults">
+            <h2>OBD LookUp</h2>
+            <form id="obd">
+                <label for="vinNum">Vin:</label>
+                <input id="vinNum" type="text" required>
+                <label for="carMileage">Mileage:</label>
+                <input id="carMileage" type="text" required>
+                <label for="errorCode">Error Code:</label>
+                <input id="errorCode" type="text" required>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
 
-                    <label for="vinNum">Vin:</label>
-                    <input id="vinNum" type="text" required>
-                    <label for="carMileage">Mileage:</label>
-                    <input id="carMileage" type="text" required>
-                    <label for="errorCode">Error Code:</label>
-                    <input id="errorCode" type="text" required>
-                    <button class="btn btn-primary" type="submit">Submit</button>
-
-                </form>
-            </div>
+    </div>
+    <!-- <div class="container">
+        <div class="imgobd">
+            <img class="img-responsive" src="assets/images/car1.jpg" alt="OBD">
 
         </div>
-        <div class="imgobd">
-            <img id="obdimg" src="assets/images/car1.jpg" alt="OBD">
+    </div> -->
+    <div class="container">
+        <div class="form-group" style="border:solid 2px lightgrey; background-color: white; margin-left:50px; margin-right:50px">
+            <label for="contact">
+                <h1 id="am">FAQ: What is OBD?</h1>
+            </label>
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="assets/images/car1.jpg" class="img-fluid" alt="Responsive image" style="padding:20px">
+                    </div>
+                    <div class="col-sm-9">
+                        <p style="padding:20px">OBD stands for On-Board Diagnostics. OBD-II (OBD two) is the latest industry standard, which was introduced on 1996 vehicle models. It provides monitoring of nearly all engine controls, and also some other parts of the vehicle
+                            (chassis, body, etc.). The most useful part of OBD to most drivers is the ability to read information from the vehicle. You can read trouble codes, and even monitor real-time statistics such as RPM, vehicle speed, etc. There
+                            are a variety of different devices on the market ranging from basic code scanners to advanced displays that calculate MPG as you drive.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="footer">
         <% include ./partials/footer %>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
-
-        $("button").on("click", function () {
+        $("button").on("click", function() {
             event.preventDefault();
             var vin = $("#vinNum").val();
             var mileage = $("#carMileage").val();
@@ -62,7 +81,7 @@
                 mileage: parseInt(mileage),
                 dtc: errorCode,
                 method: "GET"
-            }).then(function (results) {
+            }).then(function(results) {
                 $("#formAndResults").empty();
                 $("#formAndResults").append("<ul>");
                 $("#formAndResults ul").append("<li>");
@@ -78,6 +97,9 @@
             });
         })
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
