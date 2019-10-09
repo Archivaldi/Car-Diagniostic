@@ -137,29 +137,44 @@ app.post("/signup", function (req, res) {
 
     function insertCar(userId, make, model, year) {
         connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year) VALUES (?, ?, ?, ?)", [userId, make, model, year], function (err, result) {
+            req.session.logged_in = true;
 
-            res.render("profile", {
-                email: req.session.email,
-                name: req.session.name,
-                car_model: req.session.car_model,
-                car_make: req.session.car_make,
-                car_year: req.session.car_year
-            });
+            req.session.user_id = userId; //only way to get id of an insert for the mysql npm package
+
+            connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results) {
+
+                req.session.email = results[0].user_email;
+                req.session.name = results[0].user_name;
+                req.session.car_make = results[0].car_make;
+                req.session.car_model = results[0].car_model;
+                req.session.car_year = results[0].car_year;
+                var car = {
+                    car_make: req.session.car_make,
+                    car_model: req.session.car_model,
+                    car_year: req.session.car_year
+                };
+
+                res.render("profile", {
+                    email: req.session.email,
+                    name: req.session.name,
+                    cars: [car]
+                });
+            })
         })
     }
 
     bcrypt.genSalt(10, function (err, salt) {
-        bcrypt.hash(password, salt, function (err, p_hash) {
-            connection.query("INSERT INTO users(user_email, user_name, user_p_hash) VALUES (?, ?, ?)", [userEmail, userName, p_hash], function (err, result) {
-                if (err) {
-                    res.send("You need to use a unique email")
-                } else {
-                    selectNewUserId(userEmail);
-                };
+            bcrypt.hash(password, salt, function (err, p_hash) {
+                connection.query("INSERT INTO users(user_email, user_name, user_p_hash) VALUES (?, ?, ?)", [userEmail, userName, p_hash], function (err, result) {
+                    if (err) {
+                        res.send("You need to use a unique email")
+                    } else {
+                        selectNewUserId(userEmail);
+                    };
+                });
             });
         });
     });
-});
 
 app.listen(3000, function () {
     console.log("Listening on 3000");
