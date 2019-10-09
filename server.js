@@ -74,11 +74,12 @@ app.post("/login", function (req, res) {
                     req.session.car_year = results[0].car_year;
 
                     res.render("profile", {
-                        email: req.session.email,
                         name: req.session.name,
+                        email: req.session.email,
                         car_model: req.session.car_model,
                         car_make: req.session.car_make,
-                        car_year: req.session.car_year
+                        car_year: req.session.car_year,
+
                     });
 
 
@@ -134,11 +135,11 @@ app.post("/signup", function (req, res) {
     function insertCar(userId, make, model, year) {
         connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year) VALUES (?, ?, ?, ?)", [userId, make, model, year], function (err, result) {
             res.render("profile", {
-                email: req.session.email,
                 name: req.session.name,
+                email: req.session.email,
                 car_model: req.session.car_model,
                 car_make: req.session.car_make,
-                car_year: req.session.car_year
+                car_year: req.session.car_year,
             });
         })
     }

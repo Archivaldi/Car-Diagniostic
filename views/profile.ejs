@@ -18,12 +18,13 @@
         <% include ./partials/header %>
         <div class="container">
             <div>
-
-                <h1>Logged in as <%= name%></h1>
-                <h1>Logged in as <%= email%></h1>
-                <h1>Logged in as <%= car_model%></h1>
-                <h1>Logged in as <%= car_make%></h1>
-                <h1>Logged in as <%= car_year%></h1>
+                <h2>Account info</h2>
+                <br>
+                <h1>User name <input type="text" placeholder="<%= name%>"></h1>
+                <h1>Email <%= email%></h1>
+                <h1>Car model <%= car_model%></h1>
+                <h1>Car make <%= car_make%></h1>
+                <h1>Car year <%= car_year%></h1>
                 <!-- <button class="btn btn-primary" type="submit">Add new car</button> -->
                 <div class="container">
                     <h2>Add new car</h2>
