@@ -124,19 +124,20 @@ app.post("/signup", function(req, res) {
     var userEmail = req.body.email;
     var userName = req.body.name;
     var password = req.body.password;
-    var carMake = req.body.carmake;
+    var carMake = req.body.carMake;
     var carModel = req.body.carModel;
     var carYear = req.body.year;
+    var carVin = req.body.carVin
 
     function selectNewUserId(email) {
         connection.query("SELECT * FROM users WHERE user_email=?", [email], function(err, result) {
-            insertCar(result[0].user_id, carMake, carModel, carYear);
+            insertCar(result[0].user_id, carMake, carModel, carYear, carVin);
         })
     }
 
 
-    function insertCar(userId, make, model, year) {
-        connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year) VALUES (?, ?, ?, ?)", [userId, make, model, year], function (err, result) {
+    function insertCar(userId, make, model, year, vin) {
+        connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [userId, make, model, year, vin], function (err, result) {
             req.session.logged_in = true;
 
 
@@ -149,10 +150,12 @@ app.post("/signup", function(req, res) {
                 req.session.car_make = results[0].car_make;
                 req.session.car_model = results[0].car_model;
                 req.session.car_year = results[0].car_year;
+                req.session.car_vin = results[0].car_vin;
                 var car = {
                     car_make: req.session.car_make,
                     car_model: req.session.car_model,
-                    car_year: req.session.car_year
+                    car_year: req.session.car_year,
+                    car_vin: req.session.car_vin
                 };
 
                 res.render("profile", {
