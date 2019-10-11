@@ -19,15 +19,12 @@
     </header>
     <div class="container">
         <div>
-
-            <h1>Logged in as
-                <%= name%>
-            </h1>
-            <h1>Logged in as
-                <%= email%>
-            </h1>
-            <h1>Cars: </h1>
+            <h1>Account info</h1>
+            <h4>Name</h4> <%= name%>
+            <h4>Email</h4> <%= email%>
+            <h4>Your cars </h4>
             <% for (var i = 0; i < cars.length; i++){%>
+<<<<<<< HEAD
             <li><strong><%= cars[i].car_model %></strong></li>
             <li>
                 <%= cars[i].car_make %>
@@ -66,6 +63,41 @@
 
                                 </form>
                             </div>
+=======
+            <h5>Model: <%= cars[i].car_model %></h5>
+            <li>Make: <%= cars[i].car_make %>
+            </li>
+            <li>Year: <%= cars[i].car_year %>
+            </li>
+            <li>VIN: <%= cars[i].car_vin %>
+            </li>
+            <% } %>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Add new car
+            </button>
+            <div class="modal" id="newCar">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Car details: </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="profile">
+
+                                <label for="vinNum">Vin:</label>
+                                <input id="vinNum" type="text" required>
+                                <label for="carMileage">Mileage:</label>
+                                <input id="carMileage" type="text" required>
+                                <label for="errorCode">Error Code:</label>
+                                <input id="errorCode" type="text" required>
+                                <button class="btn btn-primary" type="submit">Submit</button>
+
+                            </form>
+
+>>>>>>> cb143012ad61f3de37a84c430f34a38096760cec
 
                             <!-- Modal footer -->
                             <div class="modal-footer">
@@ -78,6 +110,7 @@
 
             </div>
 
+<<<<<<< HEAD
 
             <button class="btn btn-primary" type="submit">Add new car</button>
 
@@ -97,6 +130,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+=======
+            <div class="footer">
+                <% include ./partials/footer %>
+
+            </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+>>>>>>> cb143012ad61f3de37a84c430f34a38096760cec
 </body>
 
 </html>

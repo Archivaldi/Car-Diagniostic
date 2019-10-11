@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Notable&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
     <title>VinVin</title>
@@ -20,26 +21,107 @@
         <div>
             <h2>VIN Decoder</h2>
             <form id="obd">
+                <div class='row'>
+                    <div class='col-12'>
+                        <label for="vinNum">Vin:</label>
+                        <input type="text" name="vinNum" required>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-12'>
+                        <button class="btn btn-primary" type="submit">Submit</button>
 
-                VIN:<br>
-                <input type="text" name="vinNum" required>
-
-                <button class="btn btn-primary" type="submit">Submit</button>
-
+                    </div>
+                </div>
             </form>
+
             <div class="vinRes">
                 <!-- here goes response from api -->
             </div>
+
         </div>
     </div>
+    <div class="container">
+        <div class="form-group">
+            <h1 id="am">FAQ: What is the VIN number?</h1>
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="assets/images/vin-decoder.jpg" class="img-fluid" alt="Responsive image"
+                            style="padding:20px" id="vinImg">
+                    </div>
+                    <div class="col-sm-9">
+                        <p style="padding:20px">VIN (ang. Vehicle Identification Number) is a compilation of seventeen
+                            characters that identifies a particular vehicle
+                            and is a unique number.<br>
+                            <b> Simplify - VIN - is the code of vehicle as DNA code for human.</b>
+                            This number is assigned by the vehicle manufacturer and identifies the make, model, model
+                            year, as well as more detailed
+                            information such as engine type. <br>It is used for all type of vehicles (passenger
+                            vehicles,
+                            commercial, trailers, buses,
+                            motors, mopeds). Vehicle marking system VIN is in line with international standard ISO
+                            3779-1983 and in practice has
+                            been operating since 80's of 20th century. Standard has been accepted by most of countries
+                            and is used by leading
+                            manufacturers. VIN uniquely identifies each vehicle produced in the world during the last
+                            thirty years. The manufacturer
+                            is responsible for the uniqueness of the VIN label.
+                            <br>
+                            With a unique VIN number of each vehicle, you can track vehicle history - damage & theft
+                            records.
+
+                            Vehicle history reports are important elements to make a correct decision while buying used
+                            car.<br>
+
+                            <b>The VIN number is composed of three parts:</b><br>
+
+                            <i>The first part of three characters (WMI)</i> clearly identifies vehicle manufacturer
+                            (person,
+                            company or corporation),<br>
+                            <i>Second part identifies vehicle (VDS)</i> consists of six characters and should determine
+                            general
+                            vehicle features (encoding
+                            and sequence of characters depends on manufacturer),<br>
+                            <i>Third part distinctive vehicle (VIS)</i> consists of eight characters with obligatory
+                            last four
+                            digits. If the manufacturer
+                            specifies in that part, year and plant, it is recommended to put year on the first place and
+                            the plant code on the
+                            second.<br>
+                            It is allowed to use in the VIN number Arabic digits and large Latin letters, i.e.: 1, 2, 3,
+                            4, 5, 6, 7, 8, 9, 0 and: A,
+                            B, C, D, E, F, G, H, J, K, L, M, N, P, R, S, T, U, V, W, X, Y, Z with the exception of the
+                            letters: I,O,Q.
+
+                            In addition to above, on the vehicle or the vehicle plate can be used, various separators.
+                            These are symbols, signs,
+                            rims to separate VIN parts or indicate its beginning and the end. Selection of the separator
+                            depends on manufacturer,
+                            but can not be a character already used in VIN or other which can be similar. In the
+                            documentation separators can not be
+                            used and VIN number of the vehicle should be written in one line without any space between.
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="footer">
         <% include ./partials/footer %>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
