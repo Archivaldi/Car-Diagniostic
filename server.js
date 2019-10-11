@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+
 var bodyParser = require("body-parser");
 app.set("view engine", "ejs");
 
@@ -18,6 +19,10 @@ app.use(cookieParser());
 //allow sessions
 app.use(session({ secret: 'app', cookie: { maxAge: 1 * 1000 * 60 * 60 * 24 * 365 } }));
 
+app.use(function (req, res, next){
+        res.locals.user = req.user_id;
+    next();
+});
 
 //add dotenv package for hiding private data
 require("dotenv").config();
@@ -34,6 +39,7 @@ connection.connect(function(err) {
     }
     console.log("Database connected");
 });
+
 app.get("/index", function(req, res) {
     res.render("index");
 });
@@ -88,9 +94,9 @@ app.post("/login", function(req, res) {
 
                 } else {
                     res.redirect('/');
-                }
+                };
             });
-        }
+        };
     });
 });
 
