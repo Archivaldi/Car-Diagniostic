@@ -28,36 +28,40 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 // Creates the connection with the server and loads the product data upon a successful connection
-connection.connect(function (err) {
+connection.connect(function(err) {
     if (err) {
         console.log(err);
     }
     console.log("Database connected");
 });
-app.get("/index", function (req, res) {
+app.get("/index", function(req, res) {
     res.render("index");
 });
 
-app.get("/OBD_LookUp", function (req, res) {
+app.get("/OBD_LookUp", function(req, res) {
     res.render("obdlookup");
 });
 
-app.get("/sign-up", function (req, res) {
+app.get("/sign-up", function(req, res) {
     res.render("signup");
 })
 
-app.get("/log-in", function (req, res) {
+app.get("/log-in", function(req, res) {
     res.render("login");
 });
 
-app.get("/vindecoder", function (req, res) {
-    res.render("vindecoder");
+app.get("/vindecoder", function(req, res) {
+    connection.query('SELECT car_vin FROM car_data WHERE user_email = ?', [req.session.email], function(error,results,fields){
+        if (error) throw error;
+        else res.render("vindecoder", {car_vin : results[0].car_vin });
+    })
+
 })
-app.post("/login", function (req, res) {
+app.post("/login", function(req, res) {
     var userEmail = req.body.email;
     var password = req.body.password;
 
-    connection.query('SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_email = ?', [userEmail], function (error, results, fields) {
+    connection.query('SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_email = ?', [userEmail], function(error, results, fields) {
         if (error) throw error;
         if (results == 0) {
             res.send("Invalid Email and/or password. Please try again");
@@ -93,7 +97,6 @@ app.post("/login", function (req, res) {
         }
     });
 });
-
 app.get('/another-page', function (req, res) {
     var user_info = {
         user_id: req.session.user_id,
@@ -175,7 +178,6 @@ app.post("/signup", function (req, res) {
                     };
                 });
             });
-
         });
     });
 
