@@ -21,6 +21,7 @@ app.use(session({ secret: 'app', cookie: { maxAge: 1 * 1000 * 60 * 60 * 24 * 365
 
 app.use(function (req, res, next){
         res.locals.user = '';
+        res.locals.car_vin = '';
     next();
 });
 
@@ -57,12 +58,9 @@ app.get("/log-in", function(req, res) {
 });
 
 app.get("/vindecoder", function(req, res) {
-    connection.query('SELECT car_vin FROM car_data WHERE user_email = ?', [req.session.email], function(error,results,fields){
-        if (error) throw error;
-        else res.render("vindecoder", {car_vin : results[0].car_vin });
-    })
-
+    res.render("vindecoder");
 })
+
 app.post("/login", function(req, res) {
     var userEmail = req.body.email;
     var password = req.body.password;
@@ -76,6 +74,7 @@ app.post("/login", function(req, res) {
 
                 if (result == true) {
                     res.locals.user = results[0].user_id;
+                    res.locals.car_vin = results[0].car_vin;
                     req.session.user_id = results[0].user_id;
                     req.session.email = results[0].user_email;
                     req.session.name = results[0].user_name;
@@ -117,7 +116,7 @@ app.get('/another-page', function (req, res) {
 
 app.get('/logout', function (req, res) {
     req.session.destroy(function (err) {
-        res.send('you are logged out');
+        res.redirect('/');
     })
 });
 
@@ -136,7 +135,7 @@ app.post("/signup", function (req, res) {
     var carMake = req.body.carMake;
     var carModel = req.body.carModel;
     var carYear = req.body.year;
-    var carVin = req.body.carVin
+    var carVin = req.body.carVin;
 
     function selectNewUserId(email) {
         connection.query("SELECT * FROM users WHERE user_email=?", [email], function(err, result) {
@@ -146,12 +145,14 @@ app.post("/signup", function (req, res) {
 
 
     function insertCar(userId, make, model, year, vin) {
-        connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [userId, make, model, year, vin], function (err, result) {
+        connection.query("INSERT INTO car_data (user_id, car_make, car_model, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [userId, make, model, year, vin], function (err, result) {
             req.session.logged_in = true;
             req.session.user_id = userId; 
 
             connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results) {
 
+                res.locals.user = results[0].user_id;
+                res.locals.car_vin = results[0].car_vin;
                 req.session.email = results[0].user_email;
                 req.session.name = results[0].user_name;
                 req.session.car_make = results[0].car_make;
