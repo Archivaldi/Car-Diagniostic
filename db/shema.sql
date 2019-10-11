@@ -14,6 +14,7 @@ CREATE TABLE users
     CREATE TABLE car_data(
         car_id INT NOT NULL AUTO_INCREMENT,
         user_id INT NOT NULL,
+        car_vin VARCHAR(50),
         car_model VARCHAR (255),
         car_make VARCHAR (255),
         car_year INT NOT NULL,

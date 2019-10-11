@@ -130,7 +130,7 @@ app.post("/signup", function (req, res) {
     var carVin = req.body.carVin
 
     function selectNewUserId(email) {
-        connection.query("SELECT * FROM users WHERE user_email=?", [email], function (err, result) {
+        connection.query("SELECT * FROM users WHERE user_email=?", [email], function(err, result) {
             insertCar(result[0].user_id, carMake, carModel, carYear, carVin);
         })
     }
@@ -139,9 +139,7 @@ app.post("/signup", function (req, res) {
     function insertCar(userId, make, model, year, vin) {
         connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [userId, make, model, year, vin], function (err, result) {
             req.session.logged_in = true;
-
-
-            req.session.user_id = userId;
+            req.session.user_id = userId; 
 
             connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results) {
 
@@ -168,18 +166,18 @@ app.post("/signup", function (req, res) {
     }
 
     bcrypt.genSalt(10, function (err, salt) {
-        bcrypt.hash(password, salt, function (err, p_hash) {
-            connection.query("INSERT INTO users(user_email, user_name, user_p_hash) VALUES (?, ?, ?)", [userEmail, userName, p_hash], function (err, result) {
-                if (err) {
-                    res.send("You need to use a unique email")
-                } else {
-                    selectNewUserId(userEmail);
-                };
+            bcrypt.hash(password, salt, function (err, p_hash) {
+                connection.query("INSERT INTO users(user_email, user_name, user_p_hash) VALUES (?, ?, ?)", [userEmail, userName, p_hash], function (err, result) {
+                    if (err) {
+                        res.send("You need to use a unique email")
+                    } else {
+                        selectNewUserId(userEmail);
+                    };
+                });
             });
 
         });
     });
-});
 
 app.listen(3000, function () {
     console.log("Listening on 3000");
