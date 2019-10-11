@@ -66,7 +66,7 @@ app.post("/login", function(req, res) {
         if (results == 0) {
             res.send("Invalid Email and/or password. Please try again");
         } else {
-            bcrypt.compare(password, results[0].user_p_hash, function(err, result) {
+            bcrypt.compare(password, results[0].user_p_hash, function (err, result) {
 
                 if (result == true) {
 
@@ -97,8 +97,7 @@ app.post("/login", function(req, res) {
         }
     });
 });
-
-app.get('/another-page', function(req, res) {
+app.get('/another-page', function (req, res) {
     var user_info = {
         user_id: req.session.user_id,
         email: req.session.email,
@@ -110,21 +109,21 @@ app.get('/another-page', function(req, res) {
     res.json(user_info);
 });
 
-app.get('/logout', function(req, res) {
-    req.session.destroy(function(err) {
+app.get('/logout', function (req, res) {
+    req.session.destroy(function (err) {
         res.send('you are logged out');
     })
 });
 
-app.get("/", function(req, res) {
-    connection.query("SELECT * FROM role_types", function(err, result) {
+app.get("/", function (req, res) {
+    connection.query("SELECT * FROM role_types", function (err, result) {
         res.render("index", { res: result });
     })
 })
 
 
 
-app.post("/signup", function(req, res) {
+app.post("/signup", function (req, res) {
     var userEmail = req.body.email;
     var userName = req.body.name;
     var password = req.body.password;
@@ -143,8 +142,6 @@ app.post("/signup", function(req, res) {
     function insertCar(userId, make, model, year, vin) {
         connection.query("INSERT INTO car_data (user_id, car_model, car_make, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [userId, make, model, year, vin], function (err, result) {
             req.session.logged_in = true;
-
-
             req.session.user_id = userId; 
 
             connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results) {
@@ -180,11 +177,10 @@ app.post("/signup", function(req, res) {
                         selectNewUserId(userEmail);
                     };
                 });
-
             });
         });
     });
 
-app.listen(3000, function() {
+app.listen(3000, function () {
     console.log("Listening on 3000");
 });

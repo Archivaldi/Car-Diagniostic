@@ -1,0 +1,95 @@
+/* body{
+    background-image: url("car1.jpg")
+} */
+
+nav {
+    position: sticky;
+    text-align: end;
+    font-size: larger;
+    margin-top: 30px;
+}
+
+.home {
+    background-image: url("images/car2.jpg");
+    background-size: contain;
+}
+
+#obdimg {
+    margin-left: 200px;
+    vertical-align: middle;
+    border-style: none;
+    width: 600px;
+}
+#vinImg{
+    width:300%;
+
+}
+header {
+    background-color: white;
+    border-bottom: 2px solid #00e89d;
+}
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    margin-top: 100%;
+}
+#formandresults{
+    text-align: center
+}
+.form-group
+{
+    /* border:solid 2px #00e89d;  */
+    background-color: white; 
+    margin-left:50px; 
+    margin-right:50px
+}
+h2{
+    text-align: center;
+}
+
+
+input{
+    width:250px;
+    display: inline-block;
+
+}
+
+.btn-primary{
+color: black;
+background-color: #00e89d;
+border-color: #00e89d;
+width: 353px;
+margin-top:30px;
+}
+.jumbotron{
+    
+    background-color: #0078ff;
+    
+}
+#join{
+    width:353px;
+    background-color: #00e89d;
+    color: black;
+    height: 100px;
+}
+#join:hover{
+    color:#0078ff;
+    font-size:150%;
+}
+label{ 
+    width: 90px;
+   
+}
+input {
+  display: inline-block;
+  float: none;
+  margin-left: 10px;
+}
+.nav-link:hover{
+    background-color:#00e89d;
+}
+h2:hover{
+    color:#00e89d;
+}

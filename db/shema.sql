@@ -1,19 +1,23 @@
-CREATE DATABASE bike_trip;
+CREATE DATABASE car_diagnostic;
 
-USE bike_trip;
+USE car_diagnostic;
 
-CREATE TABLE role_types(
-    role_id INT NOT NULL,
-    role_name VARCHAR(50),
-    PRIMARY KEY (role_id)
-);
-
-CREATE TABLE users(
+CREATE TABLE users
+(
     user_id INT NOT NULL AUTO_INCREMENT,
-    user_name VARCHAR(55),
-    user_email VARCHAR(55),
-    user_hash_p VARCHAR(250),
-    role_id INT NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES role_types(role_id),
+    user_email VARCHAR(255),
+    user_name VARCHAR (255),
+    user_p_hash VARCHAR (255),
     PRIMARY KEY (user_id)
 );
+
+    CREATE TABLE car_data(
+        car_id INT NOT NULL AUTO_INCREMENT,
+        user_id INT NOT NULL,
+        car_vin VARCHAR(50),
+        car_model VARCHAR (255),
+        car_make VARCHAR (255),
+        car_year INT NOT NULL,
+        PRIMARY KEY (car_id),
+        FOREIGN KEY (user_id) REFERENCES users(user_id)
+ );
