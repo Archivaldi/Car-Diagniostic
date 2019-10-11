@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(session({ secret: 'app', cookie: { maxAge: 1 * 1000 * 60 * 60 * 24 * 365 } }));
 
 app.use(function (req, res, next){
-        res.locals.user = req.user_id;
+        res.locals.user = '';
     next();
 });
 
@@ -75,7 +75,7 @@ app.post("/login", function(req, res) {
             bcrypt.compare(password, results[0].user_p_hash, function (err, result) {
 
                 if (result == true) {
-
+                    res.locals.user = results[0].user_id;
                     req.session.user_id = results[0].user_id;
                     req.session.email = results[0].user_email;
                     req.session.name = results[0].user_name;
