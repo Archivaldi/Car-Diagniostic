@@ -27,14 +27,13 @@
                         <% if (car_vin = "") {%>
                             <input type="text" name="vinNum" required>
                         <% } else { %>
-                            <input type="text" name="vinNum" value="<%= car_vin %>" required>
+                            <input type="text" name="vinNum" value="<%= car_vin%>" required>
                         <% } %>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col-12'>
                         <button class="btn btn-primary" type="submit">Submit</button>
-
                     </div>
                 </div>
             </form>

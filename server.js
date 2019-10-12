@@ -20,8 +20,7 @@ app.use(cookieParser());
 app.use(session({ secret: 'app', cookie: { maxAge: 1 * 1000 * 60 * 60 * 24 * 365 } }));
 
 app.use(function (req, res, next){
-        res.locals.user = '';
-        res.locals.car_vin = '';
+        res.locals.user = req.session.name || '';
     next();
 });
 
@@ -58,7 +57,7 @@ app.get("/log-in", function(req, res) {
 });
 
 app.get("/vindecoder", function(req, res) {
-    res.render("vindecoder");
+    res.render("vindecoder", {car_vin : res.locals.car_vin});
 })
 
 app.post("/login", function(req, res) {
@@ -73,20 +72,22 @@ app.post("/login", function(req, res) {
             bcrypt.compare(password, results[0].user_p_hash, function (err, result) {
 
                 if (result == true) {
-                    res.locals.user = results[0].user_id;
-                    res.locals.car_vin = results[0].car_vin;
+                    req.session.logged_in = true;
                     req.session.user_id = results[0].user_id;
                     req.session.email = results[0].user_email;
                     req.session.name = results[0].user_name;
-                    var usersCars = [];
+                    res.locals.user = req.session.name;
+                    var userCars = req.session.user_cars = [];
+
                     for (var i = 0; i < results.length; i++) {
                         var car = {};
                         car.car_model = results[i].car_model;
                         car.car_make = results[i].car_make;
                         car.car_year = results[i].car_year;
-                        usersCars.push(car);
+                        car.car_vin = results[i].car_vin;
+                        userCars.push(car);
                     }
-                    req.session.user_cars = usersCars;
+                    
 
                     res.render("profile", {
                         email: req.session.email,
@@ -107,9 +108,7 @@ app.get('/another-page', function (req, res) {
         user_id: req.session.user_id,
         email: req.session.email,
         name: req.session.name,
-        car_model: req.session.car_model,
-        car_make: req.session.car_make,
-        car_year: req.session.car_year
+        cars: req.session.user_cars
     }
     res.json(user_info);
 });
@@ -136,6 +135,7 @@ app.post("/signup", function (req, res) {
     var carModel = req.body.carModel;
     var carYear = req.body.year;
     var carVin = req.body.carVin;
+
 
     function selectNewUserId(email) {
         connection.query("SELECT * FROM users WHERE user_email=?", [email], function(err, result) {
