@@ -58,7 +58,15 @@ app.get("/log-in", function(req, res) {
 
 app.get("/vindecoder", function(req, res) {
     res.render("vindecoder", {car_vin : res.locals.car_vin});
-})
+});
+
+app.get("/profile", function (req,res){
+    res.render("profile", {
+        email: req.session.email,
+        name: req.session.name,
+        cars: req.session.user_cars
+    });
+});
 
 app.post("/login", function(req, res) {
     var userEmail = req.body.email;
@@ -89,12 +97,7 @@ app.post("/login", function(req, res) {
                     }
                     
 
-                    res.render("profile", {
-                        email: req.session.email,
-                        name: req.session.name,
-                        cars: req.session.user_cars
-                    });
-
+                    res.redirect("/profile");
 
                 } else {
                     res.redirect('/');
@@ -151,14 +154,13 @@ app.post("/signup", function (req, res) {
 
             connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results) {
 
-                res.locals.user = results[0].user_id;
-                res.locals.car_vin = results[0].car_vin;
                 req.session.email = results[0].user_email;
                 req.session.name = results[0].user_name;
                 req.session.car_make = results[0].car_make;
                 req.session.car_model = results[0].car_model;
                 req.session.car_year = results[0].car_year;
                 req.session.car_vin = results[0].car_vin;
+                res.locals.user = req.session.name;
                 var car = {
                     car_make: req.session.car_make,
                     car_model: req.session.car_model,
