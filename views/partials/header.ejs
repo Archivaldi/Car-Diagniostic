@@ -17,15 +17,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/OBD_LookUp">OBD LookUp |</a>
                 </li>
+                <% if (user == '') { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/sign-up">Sign up |</a>
+                        <a class="nav-link" href="/sign-up">Sign up |</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/log-in">Login</a>
+                        <a class="nav-link" href="/log-in">Login</a>
                 </li>
+                <% } else {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile |</a>
+                    </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
+                <% } %>
             </ul>
         </div>
     </nav>
