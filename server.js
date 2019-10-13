@@ -129,7 +129,32 @@ app.get("/", function (req, res) {
 })
 
 app.post("/addNewCar", function(req,res){
-    
+    var carMake = req.body.carMake;
+    var carModel = req.body.carModel;
+    var carYear = req.body.year;
+    var carVin = req.body.carVin;
+
+    connection.query("INSERT INTO car_data (user_id, car_make, car_model, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [req.session.user_id, carMake, carModel, carYear, carVin], function (err, result){
+        takeNewCars(req.session.user_id);
+    });
+
+    function takeNewCars (userId) {
+        connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results){
+
+                    req.session.user_cars = [];
+
+                    for (var i = 0; i < results.length; i++) {
+                        var car = {};
+                        car.car_model = results[i].car_model;
+                        car.car_make = results[i].car_make;
+                        car.car_year = results[i].car_year;
+                        car.car_vin = results[i].car_vin;
+                        req.session.user_cars.push(car);
+                    }
+
+                    res.redirect("/profile");
+        })
+    }
 })
 
 
