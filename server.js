@@ -19,8 +19,8 @@ app.use(cookieParser());
 //allow sessions
 app.use(session({ secret: 'app', cookie: { maxAge: 1 * 1000 * 60 * 60 * 24 * 365 } }));
 
-app.use(function (req, res, next){
-        res.locals.user = req.session.name || '';
+app.use(function (req, res, next) {
+    res.locals.user = req.session.name || '';
     next();
 });
 
@@ -33,34 +33,34 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 // Creates the connection with the server and loads the product data upon a successful connection
-connection.connect(function(err) {
+connection.connect(function (err) {
     if (err) {
         console.log(err);
     }
     console.log("Database connected");
 });
 
-app.get("/index", function(req, res) {
+app.get("/index", function (req, res) {
     res.render("index");
 });
 
-app.get("/OBD_LookUp", function(req, res) {
+app.get("/OBD_LookUp", function (req, res) {
     res.render("obdlookup");
 });
 
-app.get("/sign-up", function(req, res) {
+app.get("/sign-up", function (req, res) {
     res.render("signup");
 })
 
-app.get("/log-in", function(req, res) {
+app.get("/log-in", function (req, res) {
     res.render("login");
 });
 
-app.get("/vindecoder", function(req, res) {
-    res.render("vindecoder", {car_vin : res.locals.car_vin});
+app.get("/vindecoder", function (req, res) {
+    res.render("vindecoder", { car_vin: res.locals.car_vin });
 });
 
-app.get("/profile", function (req,res){
+app.get("/profile", function (req, res) {
     res.render("profile", {
         email: req.session.email,
         name: req.session.name,
@@ -68,11 +68,11 @@ app.get("/profile", function (req,res){
     });
 });
 
-app.post("/login", function(req, res) {
+app.post("/login", function (req, res) {
     var userEmail = req.body.email;
     var password = req.body.password;
 
-    connection.query('SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_email = ?', [userEmail], function(error, results, fields) {
+    connection.query('SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_email = ?', [userEmail], function (error, results, fields) {
         if (error) throw error;
         if (results == 0) {
             res.send("Invalid Email and/or password. Please try again");
@@ -95,7 +95,7 @@ app.post("/login", function(req, res) {
                         car.car_vin = results[i].car_vin;
                         userCars.push(car);
                     }
-                    
+
 
                     res.redirect("/profile");
 
@@ -141,7 +141,7 @@ app.post("/signup", function (req, res) {
 
 
     function selectNewUserId(email) {
-        connection.query("SELECT * FROM users WHERE user_email=?", [email], function(err, result) {
+        connection.query("SELECT * FROM users WHERE user_email=?", [email], function (err, result) {
             insertCar(result[0].user_id, carMake, carModel, carYear, carVin);
         })
     }
@@ -150,7 +150,7 @@ app.post("/signup", function (req, res) {
     function insertCar(userId, make, model, year, vin) {
         connection.query("INSERT INTO car_data (user_id, car_make, car_model, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [userId, make, model, year, vin], function (err, result) {
             req.session.logged_in = true;
-            req.session.user_id = userId; 
+            req.session.user_id = userId;
 
             connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results) {
 
@@ -178,17 +178,17 @@ app.post("/signup", function (req, res) {
     }
 
     bcrypt.genSalt(10, function (err, salt) {
-            bcrypt.hash(password, salt, function (err, p_hash) {
-                connection.query("INSERT INTO users(user_email, user_name, user_p_hash) VALUES (?, ?, ?)", [userEmail, userName, p_hash], function (err, result) {
-                    if (err) {
-                        res.send("You need to use a unique email")
-                    } else {
-                        selectNewUserId(userEmail);
-                    };
-                });
+        bcrypt.hash(password, salt, function (err, p_hash) {
+            connection.query("INSERT INTO users(user_email, user_name, user_p_hash) VALUES (?, ?, ?)", [userEmail, userName, p_hash], function (err, result) {
+                if (err) {
+                    res.send("You need to use a unique email")
+                } else {
+                    selectNewUserId(userEmail);
+                };
             });
         });
     });
+});
 
 app.listen(3000, function () {
     console.log("Listening on 3000");
