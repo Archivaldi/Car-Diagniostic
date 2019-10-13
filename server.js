@@ -85,6 +85,7 @@ app.post("/login", function (req, res) {
                     req.session.email = results[0].user_email;
                     req.session.name = results[0].user_name;
                     res.locals.user = req.session.name;
+
                     var userCars = req.session.user_cars = [];
 
                     for (var i = 0; i < results.length; i++) {
@@ -95,7 +96,6 @@ app.post("/login", function (req, res) {
                         car.car_vin = results[i].car_vin;
                         userCars.push(car);
                     }
-
 
                     res.redirect("/profile");
 
@@ -128,6 +128,35 @@ app.get("/", function (req, res) {
     })
 })
 
+app.post("/addNewCar", function(req,res){
+    var carMake = req.body.carMake;
+    var carModel = req.body.carModel;
+    var carYear = req.body.year;
+    var carVin = req.body.carVin;
+
+    connection.query("INSERT INTO car_data (user_id, car_make, car_model, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [req.session.user_id, carMake, carModel, carYear, carVin], function (err, result){
+        takeNewCars(req.session.user_id);
+    });
+
+    function takeNewCars (userId) {
+        connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results){
+
+                    req.session.user_cars = [];
+
+                    for (var i = 0; i < results.length; i++) {
+                        var car = {};
+                        car.car_model = results[i].car_model;
+                        car.car_make = results[i].car_make;
+                        car.car_year = results[i].car_year;
+                        car.car_vin = results[i].car_vin;
+                        req.session.user_cars.push(car);
+                    }
+
+                    res.redirect("/profile");
+        })
+    }
+})
+
 
 
 app.post("/signup", function (req, res) {
@@ -156,23 +185,16 @@ app.post("/signup", function (req, res) {
 
                 req.session.email = results[0].user_email;
                 req.session.name = results[0].user_name;
-                req.session.car_make = results[0].car_make;
-                req.session.car_model = results[0].car_model;
-                req.session.car_year = results[0].car_year;
-                req.session.car_vin = results[0].car_vin;
                 res.locals.user = req.session.name;
-                var car = {
-                    car_make: req.session.car_make,
-                    car_model: req.session.car_model,
-                    car_year: req.session.car_year,
-                    car_vin: req.session.car_vin
-                };
 
-                res.render("profile", {
-                    email: req.session.email,
-                    name: req.session.name,
-                    cars: [car]
-                });
+                var userCars = req.session.user_cars = [{
+                    car_make: results[0].car_make,
+                    car_model: results[0].car_model,
+                    car_year: results[0].car_year,
+                    car_vin: results[0].car_vin
+                }];
+
+                 res.redirect("/profile");
             })
         })
     }

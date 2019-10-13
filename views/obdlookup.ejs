@@ -105,15 +105,25 @@
                 $("#formAndResults").empty();
                 $("#formAndResults").append("<ul>");
                 $("#formAndResults ul").append("<li>");
-                $("li:last-child").text("Error code: " + results.data.code);
-                $("ul").append("<li>");
-                $("li:last-child").text("Definition: " + results.data.tech_definition);
-                $("ul").append("<li>");
-                $("li:last-child").text("Effect on vehicle: " + results.data.effect_on_vehicle);
-                $("ul").append("<li>");
-                $("li:last-child").text("Responsible System: " + results.data.responsible_system);
-                $("ul").append("<li>");
-                $("li:last-child").text("Urgency: " + results.data.urgency_desc);
+                $("#formAndResults ul li:last-child").text("Error code: " + results.data.code);
+                $("#formAndResults ul").append("<li>");
+                $("#formAndResults ul li:last-child").text("Definition: " + results.data.tech_definition);
+                $("#formAndResults ul").append("<li>");
+                if (results.data.effect_on_vehicle != "") {
+                    $("#formAndResults ul li:last-child").text("Effect on vehicle: " + results.data.effect_on_vehicle);
+                } else {
+                    $("#formAndResults ul li:last-child").text("Effect on vehicle: No effect");
+                };
+                if (results.data.responsible_system != "") {
+                    $("#formAndResults ul").append("<li>");
+                    $("#formAndResults ul li:last-child").text("Responsible System: " + results.data.responsible_system);
+                };
+                $("#formAndResults ul").append("<li>");
+                if (results.data.urgency_desc != "") {
+                    $("#formAndResults ul li:last-child").text("Urgency: " + results.data.urgency_desc);
+                } else {
+                    $("#formAndResults ul li:last-child").text("Urgency: There is no emergency yet");
+                }
             });
         })
     </script>

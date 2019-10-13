@@ -49,7 +49,6 @@
                         </div>
                         <div class="modal-body">
                             <form id="profile" action="/addNewCar" method="POST">
-
                                 <label for="carMake">Car make </label>
                                 <input id="carMake" type="text" name="carMake" placeholder="eg.Ford" required>
                                 <label for="carModel">Car model </label>
@@ -57,7 +56,7 @@
                                 <label for="carYear">Car year </label>
                                 <input id="carYear" type="number" name="year" min="4" placeholder="eg.2008" required>
                                 <label for="vinNum">Vin:</label>
-                                <input id="vinNum" type="text" required>
+                                <input id="vinNum" type="text" name="carVin" required>
 
                                 <button class="btn btn-primary" type="submit">Submit</button>
 
