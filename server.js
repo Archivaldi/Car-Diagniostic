@@ -64,7 +64,7 @@ app.get("/profile", function (req, res) {
     res.render("profile", {
         email: req.session.email,
         name: req.session.name,
-        cars: [req.session.user_cars]
+        cars: req.session.user_cars
     });
 });
 
@@ -85,6 +85,7 @@ app.post("/login", function (req, res) {
                     req.session.email = results[0].user_email;
                     req.session.name = results[0].user_name;
                     res.locals.user = req.session.name;
+
                     var userCars = req.session.user_cars = [];
 
                     for (var i = 0; i < results.length; i++) {
@@ -95,7 +96,6 @@ app.post("/login", function (req, res) {
                         car.car_vin = results[i].car_vin;
                         userCars.push(car);
                     }
-
 
                     res.redirect("/profile");
 
@@ -128,9 +128,9 @@ app.get("/", function (req, res) {
     })
 })
 
-// app.post("/addNewCar", function(req,res){
-
-// })
+app.post("/addNewCar", function(req,res){
+    
+})
 
 
 
@@ -162,18 +162,14 @@ app.post("/signup", function (req, res) {
                 req.session.name = results[0].user_name;
                 res.locals.user = req.session.name;
 
-                var userCars = req.session.user_cars = {
+                var userCars = req.session.user_cars = [{
                     car_make: results[0].car_make,
                     car_model: results[0].car_model,
                     car_year: results[0].car_year,
                     car_vin: results[0].car_vin
-                };
+                }];
 
-                res.render("profile", {
-                    email: req.session.email,
-                    name: req.session.name,
-                    cars: [req.session.user_cars]
-                });
+                 res.redirect("/profile");
             })
         })
     }
