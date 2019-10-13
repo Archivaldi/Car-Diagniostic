@@ -96,3 +96,8 @@ h2:hover{
 .modal-content{
     width:150%;
 } 
+#imgLogin{
+     display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
