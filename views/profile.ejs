@@ -22,15 +22,16 @@
             <h1>Account info</h1>
             <h4>Name</h4> <%= name%>
             <h4>Email</h4> <%= email%>
-            <h4>Your cars </h4>
+            <h4>Your cars: </h4>
             <% for (var i = 0; i < cars.length; i++){%>
-            <h5>Make: <%= cars[i].car_make %></h5>
-            <li>Model: <%= cars[i].car_model %>
+            <h5 style="margin-left: 25px;">Make: <%= cars[i].car_make %></h5>
+            <li style="margin-left: 35px;">Model: <%= cars[i].car_model %>
             </li>
-            <li>Year: <%= cars[i].car_year %>
+            <li style="margin-left: 35px;">Year: <%= cars[i].car_year %>
             </li>
-            <li>VIN: <%= cars[i].car_vin %>
+            <li style="margin-left: 35px;">VIN: <%= cars[i].car_vin %>
             </li>
+            <br>
             <% } %>
 
 
