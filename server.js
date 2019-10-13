@@ -64,7 +64,7 @@ app.get("/profile", function (req, res) {
     res.render("profile", {
         email: req.session.email,
         name: req.session.name,
-        cars: req.session.user_cars
+        cars: [req.session.user_cars]
     });
 });
 
@@ -128,6 +128,10 @@ app.get("/", function (req, res) {
     })
 })
 
+// app.post("/addNewCar", function(req,res){
+
+// })
+
 
 
 app.post("/signup", function (req, res) {
@@ -156,22 +160,19 @@ app.post("/signup", function (req, res) {
 
                 req.session.email = results[0].user_email;
                 req.session.name = results[0].user_name;
-                req.session.car_make = results[0].car_make;
-                req.session.car_model = results[0].car_model;
-                req.session.car_year = results[0].car_year;
-                req.session.car_vin = results[0].car_vin;
                 res.locals.user = req.session.name;
-                var car = {
-                    car_make: req.session.car_make,
-                    car_model: req.session.car_model,
-                    car_year: req.session.car_year,
-                    car_vin: req.session.car_vin
+
+                var userCars = req.session.user_cars = {
+                    car_make: results[0].car_make,
+                    car_model: results[0].car_model,
+                    car_year: results[0].car_year,
+                    car_vin: results[0].car_vin
                 };
 
                 res.render("profile", {
                     email: req.session.email,
                     name: req.session.name,
-                    cars: [car]
+                    cars: [req.session.user_cars]
                 });
             })
         })
