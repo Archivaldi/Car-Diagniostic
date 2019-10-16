@@ -136,20 +136,17 @@
             }).then(function (results) {
                 $("#obd").empty();
                 $(".vinRes").append("<ul>");
-                $(".vinRes ul").append("<li>");
-                $("li:last-child").text("Engine type: " + results.data.engine);
-                $(".vinRes ul").append("<li>");
-                $("li:last-child").text("Car make: " + results.data.make);
-                $(".vinRes ul").append("<li>");
-                $("li:last-child").text("Car manufacturer: " + results.data.manufacturer);
-                $(".vinRes ul").append("<li>");
-                $("li:last-child").text("Car Model: " + results.data.model);
-                $(".vinRes ul").append("<li>");
-                $("li:last-child").text("Transmission Type: " + results.data.transmission);
-                $(".vinRes ul").append("<li>");
-                $("li:last-child").text("Trim Type: " + results.data.trim);
-                $(".vinRes ul").append("<li>");
-                $("li:last-child").text("Car Model Year: " + results.data.year);
+                var liOne = $('<li>').text("Engine type: " + results.data.engine);
+                var liTwo = $('<li>').text("Car make: " + results.data.make);
+                var liThree = $('<li>').text("Car manufacturer: " + results.data.manufacturer);
+                var liFour = $('<li>').text("Car Model: " + results.data.model);
+                var liFive = $('<li>').text("Transmission Type: " + results.data.transmission);
+                var liSix = $('<li>').text("Trim Type: " + results.data.trim);
+                var liSeven = $('<li>').text("Car Model Year: " + results.data.year);
+
+                $(".vinRes ul").append(liOne, liTwo, liThree, liFour, liFive, liSix, liSeven);
+
+
             });
         });
     </script>
