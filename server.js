@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 //add dotenv package for hiding private data
 require("dotenv").config();
 const keys = require("./keys.js");
-var connection = mysql.createConnection(keys.data);
+var connection = mysql.createConnection(process.env.JAWSDB_URL || keys.data);
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public'));
@@ -128,31 +128,32 @@ app.get("/", function (req, res) {
     })
 })
 
-app.post("/addNewCar", function(req,res){
+app.post("/addNewCar", function (req, res) {
     var carMake = req.body.carMake;
     var carModel = req.body.carModel;
     var carYear = req.body.year;
     var carVin = req.body.carVin;
 
-    connection.query("INSERT INTO car_data (user_id, car_make, car_model, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [req.session.user_id, carMake, carModel, carYear, carVin], function (err, result){
+    connection.query("INSERT INTO car_data (user_id, car_make, car_model, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [req.session.user_id, carMake, carModel, carYear, carVin], function (err, result) {
         takeNewCars(req.session.user_id);
     });
 
-    function takeNewCars (userId) {
-        connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results){
+    function takeNewCars(userId) {
+        connection.query("SELECT * FROM users LEFT JOIN car_data USING (user_id) WHERE user_id = ?", [userId], function (err, results) {
 
-                    req.session.user_cars = [];
+            req.session.user_cars = [];
 
-                    for (var i = 0; i < results.length; i++) {
-                        var car = {};
-                        car.car_make = results[i].car_make;
-                        car.car_model = results[i].car_model;
-                        car.car_year = results[i].car_year;
-                        car.car_vin = results[i].car_vin;
-                        req.session.user_cars.push(car);
-                    }
+            for (var i = 0; i < results.length; i++) {
+                var car = {};
+                car.car_make = results[i].car_make;
+                car.car_model = results[i].car_model;
+                car.car_year = results[i].car_year;
+                car.car_vin = results[i].car_vin;
+                req.session.user_cars.push(car);
+            }
 
-                    res.redirect("/profile");
+
+            res.redirect("/profile");
         })
     }
 })
@@ -194,7 +195,7 @@ app.post("/signup", function (req, res) {
                     car_vin: results[0].car_vin
                 }];
 
-                 res.redirect("/profile");
+                res.redirect("/profile");
             })
         })
     }
@@ -212,6 +213,6 @@ app.post("/signup", function (req, res) {
     });
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Listening on 3000");
 });

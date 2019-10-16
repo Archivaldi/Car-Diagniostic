@@ -18,16 +18,17 @@
         <% include ./partials/header %>
     </header>
     <div class="jumbotron">
-        <div>
+        <div class="vinRes">
             <h2>VIN Decoder</h2>
+
             <form id="obd">
                 <div class='row'>
                     <div class='col-12'>
                         <label for="vinNum">Vin:</label>
                         <% if (car_vin = "") {%>
-                            <input type="text" name="vinNum" required>
+                        <input type="text" id="vinNum" required>
                         <% } else { %>
-                            <input type="text" name="vinNum" value="<%= car_vin%>" required>
+                        <input type="text" id="vinNum" value="<%= car_vin%>" required>
                         <% } %>
                     </div>
                 </div>
@@ -36,12 +37,8 @@
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </div>
+
             </form>
-
-            <div class="vinRes">
-                <!-- here goes response from api -->
-            </div>
-
         </div>
     </div>
     <div class="container">
@@ -116,15 +113,43 @@
         <% include ./partials/footer %>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script>
+        $("button").on("click", function () {
+            event.preventDefault();
+            var vinNum = $("#vinNum").val();
+            $.ajax({
+                url: "http://api.carmd.com/v3.0/decode?vin=" + vinNum,
+                method: "GET",
+                headers: {
+                    'authorization': 'Basic NjEwMDFlOWQtYTAzYS00MDMxLWFmZTItMjJmMTA5NjFjNmQ5',
+                    'partner-token': 'a03d6db1fe2a45f1b0ffd3f0754925e6'
+                },
+                vinNum: vinNum
+            }).then(function (results) {
+                $("#obd").empty();
+                $(".vinRes").append("<ul>");
+                var liOne = $('<li>').text("Engine type: " + results.data.engine);
+                var liTwo = $('<li>').text("Car make: " + results.data.make);
+                var liThree = $('<li>').text("Car manufacturer: " + results.data.manufacturer);
+                var liFour = $('<li>').text("Car Model: " + results.data.model);
+                var liFive = $('<li>').text("Transmission Type: " + results.data.transmission);
+                var liSix = $('<li>').text("Trim Type: " + results.data.trim);
+                var liSeven = $('<li>').text("Car Model Year: " + results.data.year);
+
+                $(".vinRes ul").append(liOne, liTwo, liThree, liFour, liFive, liSix, liSeven);
+
+
+            });
+        });
+    </script>
 </body>
 
 </html>
