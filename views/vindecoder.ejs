@@ -125,6 +125,37 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script>
+        $("button").on("click", function () {
+            event.preventDefault();
+            var vinNum = $("#vinNum").val();
+            $.ajax({
+                url: "http://api.carmd.com/v3.0/decode?vin=" + vinNum,
+                method: "GET",
+                headers: {
+                    'authorization': 'Basic MDYxODMxNGEtMzg1Yi00MjdlLTk5ZjEtMmNmZDg5NWIxNDJk',
+                    'partner-token': 'd8c2853c7dd34ae6a4b428732e13f419'
+                }, 
+                vinNum: vinNum
+            }).then(function (results) {
+                $("#obd").empty();
+                $(".vinRes").append("<ul>");
+                $("ul").append("<li>");
+                $("li:last-child").text("Engine type: " + results.data.engine);
+                $("ul").append("<li>");
+                $("li:last-child").text("Car make: " + results.data.make);
+                $("ul").append("<li>");
+                $("li:last-child").text("Car manufacturer: " + results.data.manufacturer);
+                $("ul").append("<li>");
+                $("li:last-child").text("Car Model: " + results.data.model);
+                $("ul").append("<li>");
+                $("li:last-child").text("Transmission Type: " + results.data.transmission);
+                $("ul").append("<li>");
+                $("li:last-child").text("Trim Type: " + results.data.trim);
+                $("ul").append("<li>");
+                $("li:last-child").text("Car Model Year: " + results.data.year);
+            });
+        });
+    </script>
 </body>
-
 </html>
