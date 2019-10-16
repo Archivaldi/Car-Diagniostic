@@ -126,7 +126,7 @@
             event.preventDefault();
             var vinNum = $("#vinNum").val();
             $.ajax({
-                url: "http://api.carmd.com/v3.0/decode?vin=" + vinNum,
+                url: "https://api.carmd.com/v3.0/decode?vin=" + vinNum,
                 method: "GET",
                 headers: {
                     'authorization': 'Basic NjEwMDFlOWQtYTAzYS00MDMxLWFmZTItMjJmMTA5NjFjNmQ5',

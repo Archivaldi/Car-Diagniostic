@@ -92,7 +92,7 @@
             var errorCode = $("#errorCode").val();
 
             $.ajax({
-                url: "http://api.carmd.com/v3.0/diag?vin=" + vin + "&mileage=" + mileage + "&dtc=" + errorCode,
+                url: "https://api.carmd.com/v3.0/diag?vin=" + vin + "&mileage=" + mileage + "&dtc=" + errorCode,
                 headers: {
                     'authorization': 'Basic NjEwMDFlOWQtYTAzYS00MDMxLWFmZTItMjJmMTA5NjFjNmQ5',
                     'partner-token': 'a03d6db1fe2a45f1b0ffd3f0754925e6'
