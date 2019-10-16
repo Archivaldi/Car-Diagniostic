@@ -90,8 +90,8 @@ app.post("/login", function (req, res) {
 
                     for (var i = 0; i < results.length; i++) {
                         var car = {};
-                        car.car_model = results[i].car_model;
                         car.car_make = results[i].car_make;
+                        car.car_model = results[i].car_model;
                         car.car_year = results[i].car_year;
                         car.car_vin = results[i].car_vin;
                         userCars.push(car);
@@ -145,8 +145,8 @@ app.post("/addNewCar", function(req,res){
 
                     for (var i = 0; i < results.length; i++) {
                         var car = {};
-                        car.car_model = results[i].car_model;
                         car.car_make = results[i].car_make;
+                        car.car_model = results[i].car_model;
                         car.car_year = results[i].car_year;
                         car.car_vin = results[i].car_vin;
                         req.session.user_cars.push(car);

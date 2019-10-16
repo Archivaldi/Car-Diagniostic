@@ -4,3 +4,8 @@ exports.data = {
   password: process.env.PASSWORD,
   database: process.env.DATABASE
 };
+
+exports.cred = {
+  "authorization": process.env.authorizationCode,
+  "partner-token": process.env.partnertokenCode
+};
