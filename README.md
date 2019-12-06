@@ -10,7 +10,7 @@ Very powerful and useful Full Stack Web App. It allowes user to check his/her ca
 
 ![screenshot](/shots/errorExample.JPG)
 
-The app allows the user to check his/her car's VIN code. Just write VIN code and it's going to give next info:
+The app allows the user to check his/her car's VIN code. Just go to `VIN Decoder` page and write VIN code and it's going to give next info:
 
 * Engine type
 * Car make
