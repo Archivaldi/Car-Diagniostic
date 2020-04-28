@@ -7,8 +7,6 @@ app.set("view engine", "ejs");
 //mysql package
 const mysql = require("mysql");
 
-const path = require("path");
-
 // //session stuff
 var cookieParser = require('cookie-parser');
 var bcrypt = require('bcryptjs');
@@ -19,6 +17,7 @@ app.use(cookieParser());
 //allow sessions
 app.use(session({ secret: 'app', cookie: { maxAge: 1 * 1000 * 60 * 60 * 24 * 365 } }));
 
+//using middleware to store global var
 app.use(function (req, res, next) {
     res.locals.user = req.session.name || '';
     next();
@@ -129,11 +128,8 @@ app.get("/", function (req, res) {
 })
 
 app.post("/addNewCar", function (req, res) {
-    var carMake = req.body.carMake;
-    var carModel = req.body.carModel;
-    var carYear = req.body.year;
-    var carVin = req.body.carVin;
-
+    let {carMake, carModel, carYear, carVin } = req.body;
+    
     connection.query("INSERT INTO car_data (user_id, car_make, car_model, car_year, car_vin) VALUES (?, ?, ?, ?, ?)", [req.session.user_id, carMake, carModel, carYear, carVin], function (err, result) {
         takeNewCars(req.session.user_id);
     });
